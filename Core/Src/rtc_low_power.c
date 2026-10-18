@@ -49,6 +49,8 @@ int main(void) {
 
     while(1){
     	if(command == DISPLAY_TIME_CMD){
+    		__disable_irq();
+    		command = 0;
     		HAL_ResumeTick();
     		if(HAL_RTC_GetTime(&hrtc, &hgetTime, RTC_FORMAT_BIN) != HAL_OK){
     			ErrorHandler();
@@ -63,6 +65,7 @@ int main(void) {
     		printmsg("Current Date is: %02d-%02d-%02d\r\n",hgetDate.Date, hgetDate.Month,\
     				hgetDate.Year);
     	}else if(command == SLEEP_CMD){
+    		command = 0;
     		HAL_ResumeTick();
     		printmsg("\nEntering Standby mode\n\n");
     		__HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
@@ -70,6 +73,7 @@ int main(void) {
     	}
         HAL_SuspendTick();
         __WFI();
+        __enable_irq();
     }
 
     return 0;
