@@ -18,4 +18,6 @@ void ErrorHandler(void);
 #define SYSCLK_180_MHZ      180
 #define SLEEP_CMD            1
 #define DISPLAY_TIME_CMD     2
+#define ALARM_OFF			 3
+#define ALARM_ON			 4
 #endif
